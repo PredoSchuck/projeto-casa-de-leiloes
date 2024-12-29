@@ -1,11 +1,13 @@
-import java.util.ArrayList;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 public class listagemVIEW extends javax.swing.JFrame {
 
     public listagemVIEW() {
         initComponents();
         listarProdutos();
+        atualizarTabela();
     }
 
     @SuppressWarnings("unchecked")
@@ -135,6 +137,23 @@ public class listagemVIEW extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void atualizarTabela() {
+        ProdutosDAO dao = new ProdutosDAO();
+        ArrayList<ProdutosDTO> produtos = dao.listarProdutos();
+        
+        DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
+        model.setRowCount(0);
+
+    for (ProdutosDTO produto : produtos) {
+        model.addRow(new Object[]{
+            produto.getId(),
+            produto.getNome(),
+            produto.getValor(),
+            produto.getStatus()
+        });
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVendas;
     private javax.swing.JButton btnVender;
