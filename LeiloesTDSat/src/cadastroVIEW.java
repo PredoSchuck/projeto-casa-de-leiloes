@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 public class cadastroVIEW extends javax.swing.JFrame {
 
     public cadastroVIEW() {
@@ -16,7 +19,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         cadastroValor = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        btnCadastrar = new javax.swing.JButton();
+        btnCadastrarESalvar = new javax.swing.JButton();
         btnProdutos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,11 +41,11 @@ public class cadastroVIEW extends javax.swing.JFrame {
             }
         });
 
-        btnCadastrar.setBackground(new java.awt.Color(153, 255, 255));
-        btnCadastrar.setText("Cadastrar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarESalvar.setBackground(new java.awt.Color(153, 255, 255));
+        btnCadastrarESalvar.setText("Cadastrar e Salvar");
+        btnCadastrarESalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                btnCadastrarESalvarActionPerformed(evt);
             }
         });
 
@@ -61,7 +64,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(230, 230, 230)
-                        .addComponent(btnCadastrar))
+                        .addComponent(btnCadastrarESalvar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
                         .addComponent(jLabel1)))
@@ -106,7 +109,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(cadastroValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(btnCadastrar)
+                .addComponent(btnCadastrarESalvar)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
@@ -122,7 +125,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+    private void btnCadastrarESalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarESalvarActionPerformed
         ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
@@ -134,19 +137,35 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
         
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+        salvarProduto();
+    }//GEN-LAST:event_btnCadastrarESalvarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
         listagemVIEW listagem = new listagemVIEW(); 
         listagem.setVisible(true);
     }//GEN-LAST:event_btnProdutosActionPerformed
 
+    private void salvarProduto(){
+        String nomeSalvo = cadastroNome.getText();
+        String valorSalvo = cadastroValor.getText();
+        
+        if (nomeSalvo.isEmpty()){
+            JOptionPane.showMessageDialog(this, "O nome do produto não pode estar vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (valorSalvo.isEmpty()){
+            JOptionPane.showMessageDialog(this, "O valor do produto não pode estar vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    
     public static void main(String args[]) {
         new cadastroVIEW().setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCadastrarESalvar;
     private javax.swing.JButton btnProdutos;
     private javax.swing.JTextField cadastroNome;
     private javax.swing.JTextField cadastroValor;
