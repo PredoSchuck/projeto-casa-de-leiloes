@@ -125,19 +125,18 @@ public class cadastroVIEW extends javax.swing.JFrame {
 
     private void btnCadastrarESalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarESalvarActionPerformed
         String nome = cadastroNome.getText();
-        String valor = cadastroValor.getText();
-        if (nome.isEmpty() || valor.isEmpty()) {
+        int valor = Integer.parseInt(cadastroValor.getText());
+        if (nome.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
             ProdutosDTO produto = new ProdutosDTO();
             produto.setNome(nome);
-            produto.setValor(Integer.parseInt(valor));
-            produto.setStatus("A Venda");
+            produto.setValor(valor);
 
             ProdutosDAO dao = new ProdutosDAO();
-            boolean sucesso = dao.cadastrarProduto(produto);
+            boolean sucesso = dao.cadastrarESalvarProduto(produto);
 
             if (sucesso) {
                 JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");

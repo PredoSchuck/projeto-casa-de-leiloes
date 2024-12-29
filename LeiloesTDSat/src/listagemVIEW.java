@@ -5,7 +5,9 @@ public class listagemVIEW extends javax.swing.JFrame {
 
     public listagemVIEW() {
         initComponents();
+        listarProdutos();
         atualizarTabela();
+        carregarTabela();
     }
 
     @SuppressWarnings("unchecked")
@@ -135,6 +137,16 @@ public class listagemVIEW extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void carregarTabela() {
+        ProdutosDAO dao = new ProdutosDAO();
+        DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
+        model.setRowCount(0);
+
+        for (ProdutosDTO produto : dao.listarProdutos()) {
+            model.addRow(new Object[]{produto.getId(), produto.getNome(), produto.getValor(), produto.getStatus()});
+        }
+    }
+    
     private void atualizarTabela() {
         ProdutosDAO dao = new ProdutosDAO();
         ArrayList<ProdutosDTO> produtos = dao.listarProdutos();
