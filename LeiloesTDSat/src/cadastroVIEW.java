@@ -124,51 +124,37 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarESalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarESalvarActionPerformed
-        ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
-        String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
-        
-        ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
-        
-        salvarProduto();
+        if (nome.isEmpty() || valor.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            ProdutosDTO produto = new ProdutosDTO();
+            produto.setNome(nome);
+            produto.setValor(Integer.parseInt(valor));
+            produto.setStatus("A Venda");
+
+            ProdutosDAO dao = new ProdutosDAO();
+            boolean sucesso = dao.cadastrarProduto(produto);
+
+            if (sucesso) {
+                JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+                cadastroNome.setText("");
+                cadastroValor.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar produto.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor deve ser um número inteiro.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCadastrarESalvarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
         listagemVIEW listagem = new listagemVIEW(); 
         listagem.setVisible(true);
     }//GEN-LAST:event_btnProdutosActionPerformed
-
-    private void salvarProduto(){
-        String nomeSalvo = cadastroNome.getText();
-        String valorSalvo = cadastroValor.getText();
-        
-        if (nomeSalvo.isEmpty()){
-            JOptionPane.showMessageDialog(this, "O nome do produto não pode estar vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        if (valorSalvo.isEmpty()){
-            JOptionPane.showMessageDialog(this, "O valor do produto não pode estar vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        ProdutosDAO dao = new ProdutosDAO();
-        boolean sucesso = dao.cadastrarProduto(nomeSalvo);
-        
-        if (sucesso) {
-            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Falha ao cadastrar o produto.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        cadastroNome.setText("");
-        cadastroValor.setText("");
-    }
     
     public static void main(String args[]) {
         new cadastroVIEW().setVisible(true);
