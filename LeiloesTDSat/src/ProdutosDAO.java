@@ -23,4 +23,8 @@ public class ProdutosDAO {
         
         return listagem;
     }
+    
+    public boolean cadastrarProduto(String nome){
+        return true;
+    }
 }

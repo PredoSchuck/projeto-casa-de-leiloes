@@ -158,6 +158,18 @@ public class cadastroVIEW extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "O valor do produto não pode estar vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        ProdutosDAO dao = new ProdutosDAO();
+        boolean sucesso = dao.cadastrarProduto(nomeSalvo);
+        
+        if (sucesso) {
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Falha ao cadastrar o produto.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        cadastroNome.setText("");
+        cadastroValor.setText("");
     }
     
     public static void main(String args[]) {
