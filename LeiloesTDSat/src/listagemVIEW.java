@@ -1,5 +1,6 @@
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class listagemVIEW extends javax.swing.JFrame {
 
@@ -120,12 +121,23 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        String id = id_produto_venda.getText();
-        
+        String idText = id_produto_venda.getText();
+        if (idText.isEmpty() || !idText.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Insira um ID válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int id = Integer.parseInt(idText);
+
         ProdutosDAO produtosdao = new ProdutosDAO();
-        
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+        boolean sucesso = produtosdao.venderProduto(id);
+
+        if (sucesso) {
+            JOptionPane.showMessageDialog(this, "Produto vendido com sucesso!");
+            carregarTabela(); // Atualiza a tabela após a venda
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao vender produto.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
