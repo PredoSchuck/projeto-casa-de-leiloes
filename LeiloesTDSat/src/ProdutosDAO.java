@@ -44,4 +44,21 @@ public class ProdutosDAO {
             return false;
         }
     }
+    
+    public boolean venderProduto(int id) {
+        String sql = "UPDATE produtos SET status_vendido = 'Vendido' WHERE id = ?";
+
+        try (Connection conn = conectaDAO.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, id);
+
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
