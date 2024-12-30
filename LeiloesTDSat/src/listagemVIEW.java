@@ -143,7 +143,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         model.setRowCount(0);
 
         for (ProdutosDTO produto : dao.listarProdutos()) {
-            model.addRow(new Object[]{produto.getId(), produto.getNome(), produto.getValor(), produto.getStatus()});
+            model.addRow(new Object[]{produto.getId(), produto.getNome(), produto.getValor(), produto.getStatus_Vendido()});
         }
     }
     
@@ -159,7 +159,7 @@ public class listagemVIEW extends javax.swing.JFrame {
             produto.getId(),
             produto.getNome(),
             produto.getValor(),
-            produto.getStatus()
+            produto.getStatus_Vendido()
         });
         }
     }
@@ -191,7 +191,7 @@ public class listagemVIEW extends javax.swing.JFrame {
                     listagem.get(i).getId(),
                     listagem.get(i).getNome(),
                     listagem.get(i).getValor(),
-                    listagem.get(i).getStatus()
+                    listagem.get(i).getStatus_Vendido()
                 });
             }
         } catch (Exception e) {

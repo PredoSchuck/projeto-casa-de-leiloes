@@ -2,8 +2,8 @@ public class ProdutosDTO {
     private int id;
     private String nome;
     private int valor;
-    private String status;
-
+    private String status_Vendido;
+    
     public int getId() {
         return id;
     }
@@ -28,11 +28,11 @@ public class ProdutosDTO {
         this.valor = valor;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatus_Vendido() {
+        return status_Vendido;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus_Vendido(String status_vendido) {
+        this.status_Vendido = status_vendido;
     }
 }
