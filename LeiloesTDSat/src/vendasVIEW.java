@@ -1,6 +1,9 @@
+import javax.swing.table.DefaultTableModel;
+
 public class vendasVIEW extends javax.swing.JFrame {
     public vendasVIEW() {
         initComponents();
+        carregarTabelaVendas();
     }
     
     @SuppressWarnings("unchecked")
@@ -15,13 +18,13 @@ public class vendasVIEW extends javax.swing.JFrame {
 
         jTableTabelaVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Valor", "Status"
+                "ID", "Nome", "Valor"
             }
         ));
         jScrollPane1.setViewportView(jTableTabelaVendas);
@@ -54,10 +57,15 @@ public class vendasVIEW extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void carregarTabelaVendas() {
+        ProdutosDAO dao = new ProdutosDAO();
+        DefaultTableModel model = (DefaultTableModel) jTableTabelaVendas.getModel();
+        model.setRowCount(0);
 
-    
-    
-    
+        for (ProdutosDTO produto : dao.listarProdutosVendidos()) {
+            model.addRow(new Object[]{produto.getId(), produto.getNome(), produto.getValor()});
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelVendas;
     private javax.swing.JScrollPane jScrollPane1;

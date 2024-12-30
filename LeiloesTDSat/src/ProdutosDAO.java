@@ -61,4 +61,27 @@ public class ProdutosDAO {
             return false;
         }
     }
+    
+    public ArrayList<ProdutosDTO> listarProdutosVendidos() {
+        ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+        String sql = "SELECT * FROM produtos WHERE status_vendido = 'Vendido'";
+
+        try (Connection conn = conectaDAO.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(rs.getInt("valor"));
+                produto.setStatus_Vendido(rs.getString("status_vendido"));
+
+                listagem.add(produto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listagem;
+    }
 }
